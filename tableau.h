@@ -2,6 +2,6 @@
 #define TABLEAU_H
 #include "pile.h"
 
-int minimumScore(double* tab, int taille);
+int maximumScore(double* tab, int taille);
 
 #endif

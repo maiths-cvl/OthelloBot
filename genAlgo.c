@@ -50,14 +50,14 @@ coord calcul(matrix* grille, int joueur){ // cette fonction va calculer le meill
         printf("%lf\n ", tab[i]);
     } */
 
-    for(int j=0;j<DEPTH;j++){
-        for(int i=0;i<WIDTH*HEIGHT;i++){
-            coord co = (coord){i%8, i/8}; // récupération de l'indice en coordoné (x,y)
-            matrix* copie = malloc(sizeof(matrix)); // copie de la matrice de jeu pour faire des analyses
-            copie->i=8;
-            copie->j=8;
-            copie->tab = malloc(64*sizeof(int));
 
+    for(int i=0;i<WIDTH*HEIGHT;i++){
+        coord co = (coord){i%8, i/8}; // récupération de l'indice en coordoné (x,y)
+        matrix* copie = malloc(sizeof(matrix)); // copie de la matrice de jeu pour faire des analyses
+        copie->i=8;
+        copie->j=8;
+        copie->tab = malloc(64*sizeof(int));
+        for(int j=0;j<DEPTH;j++) {
             for(int k =0; k<64;k++){
                 copie->tab[k] = grille->tab[k];
             }

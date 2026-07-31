@@ -4,7 +4,7 @@
 #include "jeu.h"
 #include "tableau.h"
 
-#define DEPTH 1 // profondeur de calcul
+#define DEPTH 2 // profondeur de calcul
 #define WIDTH 8
 #define HEIGHT 8
 #define INFINI 1000000000.0 // le score n'ira pas jusque là je l'espère
