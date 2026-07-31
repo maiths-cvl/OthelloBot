@@ -15,7 +15,7 @@ int Placer(matrix* grille, int joueur, const coord co) {
     bool placerr = false;
 
     if (co.x == -1 && co.y == -1){
-        printf("Plus de coup légaux disponible pour le joueur %d, il passe son tour", joueur);
+        //printf("Plus de coup légaux disponible pour le joueur %d, il passe son tour", joueur);
         return -2; // le tour doit être passé car il n'y a pas de coup légal
     } else if (grille->tab[co.y*8+co.x] == 0) {
         for(int i=0;i<8;i++){ // 8 directions dans lesquelles se déplacer

@@ -5,12 +5,33 @@
 #include "pile.h"
 #include "genAlgo.h"
 #include "jeu.h"
+#include "gen.h"
 
 int main(){
 
+
+    entrainement();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
     /* double tab[] = {4, 2, 3, 1.0/3.0, 1, 2, 10000000};
     printf("min tab : %d, %lf\n", minimumScore(tab, 7), tab[minimumScore(tab, 7)]);
- */
+ *//* 
     int grille_de_depart[8*8];
     for (int i=0;i<64;i++){
         if (i == 8*3+3 || i ==8*4+4){
@@ -55,7 +76,7 @@ int main(){
     }
     printf("La partie s'est terminée car plus aucun des deux joueurs n'avait de coup possible\n");
     printf("Le score du le joueur %d est de : %lf\nLe score du joueur %d est de : %lf\n", 1, scoreFinal, -1, -scoreFinal);
-    freeM(grille);
+    freeM(grille); */
 
     return 0;
 }

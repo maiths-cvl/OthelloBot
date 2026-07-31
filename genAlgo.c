@@ -5,46 +5,13 @@
 #include "matrice_l.h"
 #include "jeu.h"
 #include "tableau.h"
+#include "heuristique.h"
 
-// Autre heuristique
 
-// Tableau des poids statique
-static const double POIDS_GRILLE[64] = {
-    100, -20,  10,   5,   5,  10, -20,  100,
-    -20, -50,  -2,  -2,  -2,  -2, -50,  -20,
-     10,  -2,  -1,  -1,  -1,  -1,  -2,   10,
-      5,  -2,  -1,  -1,  -1,  -1,  -2,    5,
-      5,  -2,  -1,  -1,  -1,  -1,  -2,    5,
-     10,  -2,  -1,  -1,  -1,  -1,  -2,   10,
-    -20, -50,  -2,  -2,  -2,  -2, -50,  -20,
-    100, -20,  10,   5,   5,  10, -20,  100
-};
-
-double score(matrix* grille, int joueur) {
-    double score_total = 0.0;
-    
-    for (int i = 0; i < 64; i++) {
-        // Multiplie la valeur de la case (1, -1 ou 0) par le poids stratégique
-        score_total += grille->tab[i] * POIDS_GRILLE[i];
-    }
-    
-    // Si joueur vaut 1, retourne score_total. Si -1, retourne -score_total
-    return joueur * score_total;
-}
-
-// une mauvais heuristique
-/* double score (matrix* grille, int joueur){ // heuristique à implémenter
-    double score = 0.0;
-    for(int i =0;i<64;i++){
-        score += (double) grille->tab[i];
-    }
-    return joueur*score;
-}
- */
-ScoreCo calcul(matrix* grille, int joueur, int hauteur, bool final_layer){ // cette fonction va calculer le meilleur coup pour une profondeur donnée
+ScoreCo calcul(matrix* grille, int joueur, int hauteur, bool final_layer, double* grille_poid){ // cette fonction va calculer le meilleur coup pour une profondeur donnée
     
     if (hauteur <= 0) {
-        return (ScoreCo){score(grille, joueur), (coord){-1, -1}}; // seul le score nous interesse
+        return (ScoreCo){score(grille, joueur, grille_poid), (coord){-1, -1}}; // seul le score nous interesse
     }
 
     double tab[WIDTH*HEIGHT];
@@ -67,7 +34,7 @@ ScoreCo calcul(matrix* grille, int joueur, int hauteur, bool final_layer){ // ce
         }
 
         if (Placer(copie, joueur, (coord){i%8, i/8}) == 0){
-            ScoreCo res = calcul(copie, -joueur, hauteur-1, false);
+            ScoreCo res = calcul(copie, -joueur, hauteur-1, false, grille_poid);
             tab[i] = -res.score;
         }
 

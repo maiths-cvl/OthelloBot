@@ -4,8 +4,9 @@
 #include "matrice_l.h"
 #include "jeu.h"
 #include "tableau.h"
+#include "heuristique.h"
 
-#define DEPTH1 4 // profondeur de calcul du premier bot
+#define DEPTH1 2 // profondeur de calcul du premier bot
 #define DEPTH2 2 // profondeur de calcul du deuxième bot
 #define WIDTH 8
 #define HEIGHT 8
@@ -16,8 +17,6 @@ typedef struct {
     coord co;
 } ScoreCo;
 
-double score(matrix* grille, int joueur);
-
-ScoreCo calcul(matrix* grille, int joueur, int hauteur, bool final_layer);
+ScoreCo calcul(matrix* grille, int joueur, int hauteur, bool final_layer, double* grille_poid);
 
 #endif

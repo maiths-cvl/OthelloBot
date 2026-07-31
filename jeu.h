@@ -4,7 +4,16 @@
 #include "matrice_l.h"
 #include "pile.h"
 
-#define  DIRECTIONS ((int[8][2]){{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}})
+static const int  DIRECTIONS[8][2] = {
+    {-1, -1},
+    {-1, 0},
+    {-1, 1},
+    {0, -1},
+    {0, 1},
+    {1, -1},
+    {1, 0},
+    {1, 1}        
+};
 
 int Placer(matrix* grille, int joueur, const coord co);
 
