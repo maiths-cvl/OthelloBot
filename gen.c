@@ -67,14 +67,17 @@ void boucle(matScore* resultats){
             resultats[j].score += -scoreFinal/((double) N);
             freeM(grille);
         }
+        //printf("%d a fini tous ses combats, ", k);
     }
+    printf("\n");
 }
 
 double* muter(double* grille){
+    double* res = malloc(64*sizeof(double));
     for(int i=0;i<64;i++){
-        grille[i] *= 1+(((double) rand()/RAND_MAX)*0.4-0.2);
+        res[i] = grille[i]*(1+(((double) rand()/RAND_MAX)*0.4-0.2));
     }
-    return grille;
+    return res;
 }
 
 void afficherGrille(double* grille){
@@ -84,19 +87,19 @@ void afficherGrille(double* grille){
         for (int j = 0; j<8;j++){
             if(j==7){
                 if (grille[i*8+j] == -1){
-                    printf(RED "%d" RESET, grille[i*8+j]);
+                    printf(RED "%lf" RESET, grille[i*8+j]);
                 } else if (grille[i*8+j] == 0){
-                    printf(MAGENTA "%d" RESET, grille[i*8+j]);
+                    printf(MAGENTA "%lf" RESET, grille[i*8+j]);
                 } else {
-                    printf("%d", grille[i*8+j]);
+                    printf("%lf", grille[i*8+j]);
                 }
             } else {
                 if (grille[i*8+j] == -1){
-                    printf(RED "%d, " RESET, grille[i*8+j]);
+                    printf(RED "%lf, " RESET, grille[i*8+j]);
                 } else if (grille[i*8+j] == 0){
-                    printf(MAGENTA "%d, " RESET, grille[i*8+j]);
+                    printf(MAGENTA "%lf, " RESET, grille[i*8+j]);
                 } else {
-                    printf("%d, ", grille[i*8+j]);
+                    printf("%lf, ", grille[i*8+j]);
                 }
             }
         } printf("}\n");
@@ -126,8 +129,10 @@ void entrainement(){
         resultats[k].score = -INFINI; // on initialise les scores au minimum
     }
 
+    int percent = (int) ((double)N)*0.2;
+
     for (int k = 0;k<ITERATION;k++){
-        
+        printf("Itération %d\n", k);
         boucle(resultats); // ne renvoi rien mais rajoute les résultats dans le tableau résultat
 
         couple* tabT = malloc(N*sizeof(couple));
@@ -138,22 +143,19 @@ void entrainement(){
 
         qsort(tabT, N, sizeof(couple), comparer);
 
-        for(int i = 0;i<20;i++){ // on met les 20 meilleures dans le début de résultats
-            resultats[i].tab = resultats[tabT->indice].tab; // on place les matrices
-            resultats[i].score = -INFINI; // on reset les scores
+        for(int i = 0;i<percent;i++){ // on met les 20 meilleures dans le début de résultats
+            resultats[i].tab = resultats[tabT[i].indice].tab; // on place les matrices
         }
-        for(int i = 20;i<N;i++){ // rajoute les mutations dans le reste
-            resultats[i].tab = muter(resultats[i % 20].tab); // on place les matrices
-            resultats[i].score = -INFINI; // on reset les scores
+        for(int i = percent;i<N;i++){ // rajoute les mutations dans le reste
+            resultats[i].tab = muter(resultats[i % percent].tab); // on place les matrices
         }
 
         free(tabT);
     }
-
-    for(int i=0;i<20;i++){
-        printf("Grille n°%d, score : %d\n", i, resultats[i].score);
+    for(int i=0;i<percent;i++){
+        printf("Grille n°%d, score : %lf\n", i, resultats[i].score);
         afficherGrille(resultats[i].tab);
-        printf("%d");
+        printf("\n");
     }
 
     for(int i = 0;i<N;i++){
