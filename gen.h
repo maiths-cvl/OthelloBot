@@ -4,7 +4,7 @@
 #include "heuristique.h"
 
 #define ITERATION 10
-#define N 100 // nombre de générations par itérations
+#define N 20 // nombre de générations par itérations
 static const int GRILLE_DEPART[64] = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,

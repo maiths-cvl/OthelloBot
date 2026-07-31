@@ -30,34 +30,63 @@ double** init_gen(){ // renvoi un tableau de N matrices de poid mutées (seule l
 
 void boucle(matScore* resultats){
     for (int k=0;k<N;k++){
-        for (int j = 0; j<k;j++){ // on fait s'affronter tous les individus d'une génération entre-eux, k et j représentent chacun des individus (leur indice dans le tableau des matrices de poids)
+        for (int j = 0; j<N;j++){ // on fait s'affronter tous les individus d'une génération entre-eux, k et j représentent chacun des individus (leur indice dans le tableau des matrices de poids)
             matrix* grille = createM(GRILLE_DEPART, 8, 8);
 
             bool run = true;
             int fin = 0;
             bool premierJoueur = false;
+            bool couleur = false;
 
+            if (k>j){
+                couleur = false;
+            } else if (k<j){
+                couleur = true;
+            } else { // égalité
+                // cas spécial
+            }
             // boucle du jeu
             while(run && fin <2){ // les blancs: 1,  commencent
-                if (premierJoueur && fin == 1){
-                    fin = 0;
-                }
-                
-                if(Placer(grille, 1, calcul(grille, 1, DEPTH1, true, resultats[k].tab).co) == -2){
-                    fin+=1;
-                    premierJoueur = true;
-                }
-                //afficher(grille); // printf qui utilise du temps d'execution
+                if (!couleur){
+                    if (premierJoueur && fin == 1){
+                        fin = 0;
+                    }
 
-                if (!premierJoueur && fin == 1){
-                    fin = 0;
-                }
+                    if(Placer(grille, 1, calcul(grille, 1, DEPTH1, true, resultats[k].tab).co) == -2){
+                        fin+=1;
+                        premierJoueur = true;
+                    }
+                    //afficher(grille); // printf qui utilise du temps d'execution
 
-                if (Placer(grille, -1, calcul(grille, -1, DEPTH2, true, resultats[j].tab).co) == -2){
-                    fin+=1;
-                    premierJoueur = false;
+                    if (!premierJoueur && fin == 1){
+                        fin = 0;
+                    }
+
+                    if (Placer(grille, -1, calcul(grille, -1, DEPTH2, true, resultats[j].tab).co) == -2){
+                        fin+=1;
+                        premierJoueur = false;
+                    }
+                    //afficher(grille); // printf qui utilise du temps d'execution
+                } else {
+                    if (premierJoueur && fin == 1){
+                        fin = 0;
+                    }
+
+                    if(Placer(grille, 1, calcul(grille, 1, DEPTH1, true, resultats[j].tab).co) == -2){
+                        fin+=1;
+                        premierJoueur = true;
+                    }
+                    //afficher(grille); // printf qui utilise du temps d'execution
+
+                    if (!premierJoueur && fin == 1){
+                        fin = 0;
+                    }
+
+                    if (Placer(grille, -1, calcul(grille, -1, DEPTH2, true, resultats[k].tab).co) == -2){
+                        fin+=1;
+                        premierJoueur = false;
+                    }
                 }
-                //afficher(grille); // printf qui utilise du temps d'execution
             }
             double scoreFinal = 0.0;
             for (int i =0;i<64;i++){ // score pour le joueur 1, et sa négation pour le joueur -1
@@ -126,7 +155,7 @@ void entrainement(){
 
     for(int k = 0;k<N;k++){
         resultats[k].tab = tab[k]; // on copie les matrices de tableaux à leur emplacement
-        resultats[k].score = -INFINI; // on initialise les scores au minimum
+        resultats[k].score = 0; // on initialise les scores au minimum
     }
 
     int percent = (int) ((double)N)*0.2;
@@ -160,7 +189,6 @@ void entrainement(){
 
     for(int i = 0;i<N;i++){
         free(resultats[i].tab);
-        free(tab[i]);
     }
     free(tab);
     free(resultats);

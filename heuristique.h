@@ -19,10 +19,3 @@ static const double POIDS_GRILLE[64] = { // matrice de poids basique
 double score(matrix* grille, int joueur, double* grille_poid);
 
 #endif
-
-/* NOTES:
-Il faut rajouter la grille dans la fonction score en fonction de la matrice de poid (individu)
-Il faut free matScore dans boucle, sauf si on la return, mais alors il faut rentrer des paramètres
-Il faut trouver une manière d'indiquer quel individu joue quand on effectue la fonction boucle et bien ranger les résultats
-
-*/
