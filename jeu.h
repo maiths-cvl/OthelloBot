@@ -6,4 +6,6 @@
 
 #define  DIRECTIONS ((int[8][2]){{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}})
 
+int Placer(matrix* grille, int joueur, const coord co);
+
 #endif

@@ -33,7 +33,7 @@ int main(){
             fin = 0;
         }
         
-        if(Placer(grille, 1, calcul(grille, 1)) == -2){
+        if(Placer(grille, 1, calcul(grille, 1, DEPTH1, true).co) == -2){
             fin+=1;
             premierJoueur = true;
         }
@@ -43,15 +43,19 @@ int main(){
             fin = 0;
         }
 
-        if (Placer(grille, -1, calcul(grille, -1)) == -2){
+        if (Placer(grille, -1, calcul(grille, -1, DEPTH2, true).co) == -2){
             fin+=1;
             premierJoueur = false;
         }
         afficher(grille);
     }
+    double scoreFinal = 0.0;
+    for (int i =0;i<64;i++){ // score pour le joueur 1, et sa négation pour le joueur -1
+        scoreFinal += grille->tab[i];
+    }
     printf("La partie s'est terminée car plus aucun des deux joueurs n'avait de coup possible\n");
-    printf("Le score du le joueur %d est de : %lf\nLe score du joueur %d est de : %lf\n", 1, score(grille, 1), -1, score(grille, -1));
+    printf("Le score du le joueur %d est de : %lf\nLe score du joueur %d est de : %lf\n", 1, scoreFinal, -1, -scoreFinal);
     freeM(grille);
-    
+
     return 0;
 }
