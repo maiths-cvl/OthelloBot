@@ -6,8 +6,8 @@
 #include "tableau.h"
 #include "heuristique.h"
 
-#define DEPTH1 2 // profondeur de calcul du premier bot
-#define DEPTH2 2 // profondeur de calcul du deuxième bot
+#define DEPTH1 3 // profondeur de calcul du premier bot
+#define DEPTH2 3 // profondeur de calcul du deuxième bot
 #define WIDTH 8
 #define HEIGHT 8
 #define INFINI 1000000000.0 // le score n'ira pas jusque là je l'espère

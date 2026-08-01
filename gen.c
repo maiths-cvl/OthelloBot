@@ -31,7 +31,8 @@ double** init_gen(){ // renvoi un tableau de N matrices de poid mutées (seule l
 void boucle(matScore* resultats){
     for (int k=0;k<N;k++){
         for (int j = 0; j<N;j++){ // on fait s'affronter tous les individus d'une génération entre-eux, k et j représentent chacun des individus (leur indice dans le tableau des matrices de poids)
-            matrix* grille = createM(GRILLE_DEPART, 8, 8);
+            matrix* grille = createM(GRILLE_DEPART, 8, 8); // malloc vers une matrice et un tableau d'int dedans
+            // N^2 malloc de la même grille
 
             bool run = true;
             int fin = 0;
@@ -103,6 +104,8 @@ void boucle(matScore* resultats){
 
 double* muter(double* grille){
     double* res = malloc(64*sizeof(double));
+    // 1 malloc
+
     for(int i=0;i<64;i++){
         res[i] = grille[i]*(1+(((double) rand()/RAND_MAX)*0.4-0.2));
     }
@@ -161,7 +164,7 @@ void entrainement(){
     int percent = (int) ((double)N)*0.2;
 
     for (int k = 0;k<ITERATION;k++){
-        printf("Itération %d\n", k);
+        printf("Itération %d\n", k+1);
         boucle(resultats); // ne renvoi rien mais rajoute les résultats dans le tableau résultat
 
         couple* tabT = malloc(N*sizeof(couple));
@@ -182,7 +185,7 @@ void entrainement(){
         free(tabT);
     }
     for(int i=0;i<percent;i++){
-        printf("Grille n°%d, score : %lf\n", i, resultats[i].score);
+        printf("Grille n°%d, score : %lf\n", i+1, resultats[i].score);
         afficherGrille(resultats[i].tab);
         printf("\n");
     }
